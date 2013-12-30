@@ -19,12 +19,26 @@ namespace NIGraph_SlowRenderData
     /// </summary>
     public partial class MainWindow : Window
     {
+        private NationalInstruments.Controls.Range<double> slowRange;
+        private NationalInstruments.Controls.Range<double> fastRange; 
+
         public MainWindow()
         {
             InitializeComponent();
 
-            graph1.DataSource = NoisyData.GetMultiPlotData();
-            verticalAxis1.Range = new NationalInstruments.Controls.Range<double>(50, 100); //example range where noisy data goes off the top and bottom of screen
+            #region Read data from CSV
+            slowRange = new NationalInstruments.Controls.Range<double>(-30, 0);
+            fastRange = new NationalInstruments.Controls.Range<double>(-50000, 50000);
+            graph1.DataSource = NoisyData.GetMultiPlotDataFromCsv(@"resources\NoisyData.csv");
+            #endregion
+
+            #region use data from System.Windows.Shapes.Path experiments (originally based on Csv data)
+            //slowRange = new NationalInstruments.Controls.Range<double>(50, 100);
+            //fastRange = new NationalInstruments.Controls.Range<double>(-5000, 5000);
+            //graph1.DataSource = NoisyData.GetMultiPlotData();
+            #endregion use data from System.Windows.Shapes.Path experiments (originally based on Csv data)
+
+            verticalAxis1.Range = fastRange;
         }
 
         /// <summary>
@@ -32,7 +46,7 @@ namespace NIGraph_SlowRenderData
         /// </summary>
         private void buttonFastRender_Click(object sender, RoutedEventArgs e)
         {
-            verticalAxis1.Range = new NationalInstruments.Controls.Range<double>(-5000, 5000); //fast to render when noisy data doesn't go off-screen vertically
+            verticalAxis1.Range = fastRange; //fast to render when noisy data doesn't go off-screen vertically
         }
 
         /// <summary>
@@ -40,7 +54,7 @@ namespace NIGraph_SlowRenderData
         /// </summary>
         private void buttonSlowRender_Click(object sender, RoutedEventArgs e)
         {
-            verticalAxis1.Range = new NationalInstruments.Controls.Range<double>(50, 100); //example range where noisy data goes off the top and bottom of screen
+            verticalAxis1.Range = slowRange; //example range where noisy data goes off the top and bottom of screen
         }
     }
 }
