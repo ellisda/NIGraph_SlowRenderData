@@ -26,5 +26,21 @@ namespace NIGraph_SlowRenderData
             graph1.DataSource = NoisyData.GetMultiPlotData();
             verticalAxis1.Range = new NationalInstruments.Controls.Range<double>(50, 100); //example range where noisy data goes off the top and bottom of screen
         }
+
+        /// <summary>
+        /// Set Y Axis to show that same data can render faster when all data is visible on graph (not going off-screen)
+        /// </summary>
+        private void buttonFastRender_Click(object sender, RoutedEventArgs e)
+        {
+            verticalAxis1.Range = new NationalInstruments.Controls.Range<double>(-5000, 5000); //fast to render when noisy data doesn't go off-screen vertically
+        }
+
+        /// <summary>
+        /// Set Y Axis back to initial slow range (where points are far off-screen above and below visible yAxis Range)
+        /// </summary>
+        private void buttonSlowRender_Click(object sender, RoutedEventArgs e)
+        {
+            verticalAxis1.Range = new NationalInstruments.Controls.Range<double>(50, 100); //example range where noisy data goes off the top and bottom of screen
+        }
     }
 }
